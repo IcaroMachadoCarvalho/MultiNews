@@ -1,24 +1,16 @@
 @import "_variables.scss";
 @import "_reset.scss";
 
-// Mixin
-@mixin flex($direction, $justify, $align) {
-  display: flex;
-  flex-direction: $direction;
-  justify-content: $justify;
-  align-items: $align;
-}
-
 body {
   font-family: $fontR;
 }
 
-header {
+.header {
   background-color: $white;
   width: 100%;
-  // border-bottom: 1px solid $black;
+  height: 4.5rem;
 
-  .header__list {
+  &__list {
     height: 100%;
     @include flex(column, start, start);
   }
@@ -27,41 +19,113 @@ header {
     width: 100%;
     @include flex(row, space-between, center);
     padding: 1rem 1.2rem;
-    border-bottom: 1px solid $black; 
+    border-bottom: 1px solid $black;
 
-    i{
-        transition: $tr1;
-        cursor: pointer;
-        font-size: 1rem;
-        &:hover{
-            opacity: 0.6;
-        }
+    i {
+      transition: $tr1;
+      cursor: pointer;
+      font-size: 1rem;
+      &:hover {
+        opacity: 0.6;
+      }
     }
-}
+  }
 
-nav{
+  nav {
     width: 100%;
-    height: 0;
+    max-height: 0;
     padding: 1rem 1.2rem;
     font-size: 1.1rem;
-    border-bottom: 1px solid $black; 
-    transition: $tr1;
-    li{
-        padding: 0.5rem;
-        transition: $tr1;
-        &:hover{
-            opacity: 0.4;
-        }
+    border-bottom: 1px solid $black;
+    transition: height 4s ease-in-out, $tr1;
+    li {
+      padding: 0.5rem;
+      transition: $tr1;
+      &:hover {
+        opacity: 0.4;
+      }
+    }
+  }
 
+  &__cta {
+    padding: 1.5rem 0rem 0rem 0rem;
+    @include flex(column, center, center);
+
+    button:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+  @include responsive(tablet) {
+    .header {
+      &__cta {
+        @include flex(row, center, center);
+
+        button:not(:last-child) {
+          margin-right: 1rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @mixin desk {
+    .header {
+      &__list {
+        border-bottom: 1px solid $black;
+        padding: 1rem 1.2rem;
+        @include flex(row, space-between, center);
+
+        .list__top {
+          width: auto;
+          border-bottom: none;
+        }
+        i {
+          display: none;
+        }
+        nav {
+          padding: 0;
+          border-bottom: none;
+          @include flex(row, space-between, center);
+
+          ul {
+            @include flex(row, space-between, center);
+            font-size: clamp(0.6875rem, -0.7243rem + 2.9412vw, 0.875rem);
+          }
+        }
+      }
+      &__cta {
+        padding: 0;
+        font-size: 14px;
+        @include flex(row, center, center);
+
+        button:not(:last-child) {
+          margin-right: 1rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @include responsive(desktop) {
+    @include desk;
+  }
+  @include responsive(biggerdesktop) {
+    @include desk;
+    .header {
+      &__list {
+        nav {
+          ul {
+            font-size: 1.2rem;
+          }
+        }
+      }
     }
 
-    .header__cta{
-        padding: 1.5rem 0rem 0rem 0rem;
-        @include flex(column,center,center);
-
-        button:not(:last-child){
-            margin-bottom: 1rem;
-        }
+    &__cta {
+      button {
+        width: 128px;
+        font-size: 1.2rem;
+      }
     }
   }
 }

@@ -2,14 +2,33 @@ import { useState, useEffect } from "react";
 import Logo from "../assets/multinews_logo.png";
 const Header = () => {
   const [openNav, setOpenNav] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth); // Gerenciar a largura da janela
+
+  useEffect(() => { 
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []); 
 
   useEffect(() => {
     const navElement = document.getElementById("nav");
-    if(navElement && window.innerWidth < 768){
-      navElement.style.height = openNav ? "100%" : "0";
-      navElement.style.transform = openNav ? "translateX(0)" : "translateX(-100%)";
+
+    if (navElement) {
+      if (windowWidth < 768) {
+        navElement.style.transform = openNav ? "translateX(0)" : "translateX(-100%)";
+        navElement.style.maxHeight = openNav ? "340px" : "0";
+      } else {
+        navElement.style.transform = "translateX(0)";
+        navElement.style.maxHeight = "340px"; 
+      }
     }
-  }, [openNav]);
+  }, [openNav, windowWidth]); 
 
   const toggleNav = () => {
     if (openNav) {
@@ -21,7 +40,7 @@ const Header = () => {
 
   return (
     <>
-      <header>
+      <header className="header">
         <div className="header__list">
           <div className="list__top">
             <img src={Logo} alt="Logo do site" />
