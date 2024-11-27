@@ -15,8 +15,22 @@ $white: #ffffff;
 $blue1: #005f8d;
 $blue: #61c2f2;
 
+// Gap
+$gap: 2rem;
+
 // transition
 $tr1: all 0.3s ease-in-out;
+
+// Classes
+.section{
+  min-height: 100vh;
+}
+
+.main-content{
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 2.5rem $gap;
+}
 
 // Buttons
 @mixin btn($color) {

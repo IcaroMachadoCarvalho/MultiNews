@@ -50,7 +50,7 @@ const Header = () => {
             <ul>
               <li>Quem somos</li>
               <li>Pesquisas personalizadas</li>
-              <li>Destaques do momento</li>
+              <li>Destaques</li>
               <li>Contato</li>
             </ul>
             <div className="header__cta">
