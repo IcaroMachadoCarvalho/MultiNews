@@ -1,14 +1,23 @@
 @import "_variables.scss";
 @import "_reset.scss";
 
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: $fontR;
 }
 
+// Mobile
+// Header
 .header {
   background-color: $white;
   width: 100%;
   height: 4.5rem;
+  position: relative;
+  z-index: 10;
 
   &__list {
     height: 100%;
@@ -18,7 +27,7 @@ body {
   .list__top {
     width: 100%;
     @include flex(row, space-between, center);
-    padding: 1rem 1.2rem;
+    padding: 1rem $gap;
     border-bottom: 1px solid $black;
 
     i {
@@ -32,16 +41,19 @@ body {
   }
 
   nav {
+    background-color: $white;
     width: 100%;
     max-height: 0;
-    padding: 1rem 1.2rem;
+    padding: 1rem $gap;
     font-size: 1.1rem;
     border-bottom: 1px solid $black;
     transition: height 4s ease-in-out, $tr1;
     li {
       padding: 0.5rem;
+      font-weight: $bold;
       transition: $tr1;
       &:hover {
+        cursor: pointer;
         opacity: 0.4;
       }
     }
@@ -55,77 +67,233 @@ body {
       margin-bottom: 1rem;
     }
   }
-  @include responsive(tablet) {
-    .header {
-      &__cta {
-        @include flex(row, center, center);
+}
 
-        button:not(:last-child) {
-          margin-right: 1rem;
-          margin-bottom: 0;
-        }
-      }
+// Intro
+.intro {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &__info {
+    position: relative;
+  }
+
+  &__title {
+    font-family: $fontM;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+  }
+
+  &__p {
+    line-height: 1.5rem;
+  }
+
+  &__img {
+    padding: 0rem $gap 4rem;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &__info,
+  &__img {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+  }
+
+  &__cta {
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    padding: 1rem 0rem 0rem 0rem;
+
+    button {
+      padding: 0rem;
     }
   }
+}
+// Reaproveitar código
+@mixin introTablet {
+  .intro {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    // padding-top: 0rem;
+    gap: 1.7rem;
 
-  @mixin desk {
-    .header {
-      &__list {
-        border-bottom: 1px solid $black;
-        padding: 1rem 1.2rem;
-        @include flex(row, space-between, center);
-
-        .list__top {
-          width: auto;
-          border-bottom: none;
-        }
-        i {
-          display: none;
-        }
-        nav {
-          padding: 0;
-          border-bottom: none;
-          @include flex(row, space-between, center);
-
-          ul {
-            @include flex(row, space-between, center);
-            font-size: clamp(0.6875rem, -0.7243rem + 2.9412vw, 0.875rem);
-          }
-        }
-      }
-      &__cta {
-        padding: 0;
-        font-size: 14px;
-        @include flex(row, center, center);
-
-        button:not(:last-child) {
-          margin-right: 1rem;
-          margin-bottom: 0;
-        }
-      }
+    .main-content {
+      padding-right: 0;
     }
-  }
 
-  @include responsive(desktop) {
-    @include desk;
-  }
-  @include responsive(biggerdesktop) {
-    @include desk;
-    .header {
-      &__list {
-        nav {
-          ul {
-            font-size: 1.2rem;
-          }
-        }
-      }
+    &__info {
+      justify-content: start;
+    }
+
+    &__title {
+      font-size: 1.5rem;
     }
 
     &__cta {
       button {
-        width: 128px;
-        font-size: 1.2rem;
+        max-width: 120px;
       }
+    }
+
+    &__img {
+      width: auto;
+      height: 80%;
+      padding: 0rem $gap 0rem 0rem;
+    }
+  }
+}
+
+// Tablet
+@include responsive(tablet) {
+  // header
+  .header {
+    &__cta {
+      @include flex(row, center, center);
+
+      button:not(:last-child) {
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+  // intro
+  @include introTablet;
+}
+
+@mixin deskHeader {
+  .header {
+    &__list {
+      border-bottom: 1px solid $black;
+      padding: 1rem 1.2rem;
+      @include flex(row, space-between, center);
+
+      .list__top {
+        width: auto;
+        border-bottom: none;
+      }
+      i {
+        display: none;
+      }
+      nav {
+        padding: 0;
+        border-bottom: none;
+        @include flex(row, space-between, center);
+
+        ul {
+          @include flex(row, space-between, center);
+          font-size: clamp(0.6875rem, -0.7243rem + 2.9412vw, 0.875rem);
+        }
+      }
+    }
+    &__cta {
+      padding: 0;
+      font-size: 14px;
+      @include flex(row, center, center);
+
+      button:not(:last-child) {
+        margin-right: 1rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+// Desktop
+@include responsive(desktop) {
+  @include deskHeader;
+  @include introTablet;
+
+  // Header
+  .header {
+    &__list {
+      padding: 1rem 4rem;
+
+      .list__top {
+        padding: 1rem 1.5rem 1rem 0rem;
+      }
+    }
+  }
+
+  // Intro
+  .intro {
+    padding: 0rem 4rem;
+    &__info {
+      padding-left: 0rem;
+      justify-content: center;
+    }
+    &__title {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    &__p {
+      font-size: 1.2rem;
+    }
+
+    &__cta {
+      font-size: 1.1rem;
+      padding-top: 1.8rem;
+    }
+
+    &__img {
+      height: 100%;
+      padding-right: 0rem;
+    }
+  }
+}
+
+// Bigger desktop
+@include responsive(biggerdesktop) {
+  @include deskHeader;
+  @include introTablet;
+
+  // Header
+  .header {
+    &__list {
+      padding: 1rem 8rem;
+
+      .list__top {
+        padding: 1rem 1.5rem 1rem 0rem;
+      }
+
+      nav {
+        .header__cta {
+          button {
+            padding: 0.5rem 1.2rem;
+          }
+        }
+      }
+    }
+  }
+  // Intro
+  .intro {
+    padding: 0rem 8rem;
+
+    &__info {
+      top: -1.3rem;
+      padding-left: 0rem;
+      justify-content: center;
+    }
+
+    &__title {
+      font-size: 3.2rem;  
+      margin-bottom: 2rem;
+    }
+
+    &__p {
+      font-size: 1.2rem;
+    }
+
+    &__cta {
+      font-size: 1.1rem;
+      padding-top: 2rem;
+    }
+
+    &__img {
+      height: 100%;
+      padding-right: 0rem;
     }
   }
 }
