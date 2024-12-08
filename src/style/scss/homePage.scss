@@ -10,163 +10,12 @@ body {
   font-family: $fontR;
 }
 
-// Mobile
-// Header
-.header {
-  background-color: $white;
-  width: 100%;
-  height: 4.5rem;
-  position: relative;
-  z-index: 10;
-
-  &__list {
-    height: 100%;
-    @include flex(column, start, start);
-  }
-
-  .list__top {
-    width: 100%;
-    @include flex(row, space-between, center);
-    padding: 1rem $gap;
-    border-bottom: 1px solid $black;
-
-    i {
-      transition: $tr1;
-      cursor: pointer;
-      font-size: 1rem;
-      &:hover {
-        opacity: 0.6;
-      }
-    }
-  }
-
-  nav {
-    background-color: $white;
-    width: 100%;
-    max-height: 0;
-    padding: 1rem $gap;
-    font-size: 1.1rem;
-    border-bottom: 1px solid $black;
-    transition: height 4s ease-in-out, $tr1;
-    li {
-      padding: 0.5rem;
-      font-weight: $bold;
-      transition: $tr1;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.4;
-      }
-    }
-  }
-
-  &__cta {
-    padding: 1.5rem 0rem 0rem 0rem;
-    @include flex(column, center, center);
-
-    button:not(:last-child) {
-      margin-bottom: 1rem;
-    }
-  }
-}
-
-// Intro
-.intro {
-  display: grid;
-  grid-template-columns: 1fr;
-
-  &__info {
-    position: relative;
-  }
-
-  &__title {
-    font-family: $fontM;
-    font-size: 1.8rem;
-    margin-bottom: 1.2rem;
-  }
-
-  &__p {
-    line-height: 1.5rem;
-  }
-
-  &__img {
-    padding: 0rem $gap 4rem;
-    max-width: 100%;
-    height: auto;
-  }
-
-  &__info,
-  &__img {
-    display: flex;
-    flex-flow: column wrap;
-    justify-content: center;
-  }
-
-  &__cta {
-    display: flex;
-    gap: 1rem;
-    font-size: 1rem;
-    padding: 1rem 0rem 0rem 0rem;
-
-    button {
-      padding: 0rem;
-    }
-  }
-}
-// Reaproveitar código
-@mixin introTablet {
-  .intro {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    // padding-top: 0rem;
-    gap: 1.7rem;
-
-    .main-content {
-      padding-right: 0;
-    }
-
-    &__info {
-      justify-content: start;
-    }
-
-    &__title {
-      font-size: 1.5rem;
-    }
-
-    &__cta {
-      button {
-        max-width: 120px;
-      }
-    }
-
-    &__img {
-      width: auto;
-      height: 80%;
-      padding: 0rem $gap 0rem 0rem;
-    }
-  }
-}
-
-// Tablet
-@include responsive(tablet) {
-  // header
-  .header {
-    &__cta {
-      @include flex(row, center, center);
-
-      button:not(:last-child) {
-        margin-right: 1rem;
-        margin-bottom: 0;
-      }
-    }
-  }
-  // intro
-  @include introTablet;
-}
-
+// Header desktop para reaproveitar estilos para outras media queries
 @mixin deskHeader {
   .header {
     &__list {
       border-bottom: 1px solid $black;
-      padding: 1rem 1.2rem;
+      padding: $padding-s 1.2rem;
       @include flex(row, space-between, center);
 
       .list__top {
@@ -200,31 +49,201 @@ body {
   }
 }
 
-// Desktop
-@include responsive(desktop) {
-  @include deskHeader;
-  @include introTablet;
+// Header
+.header {
+  background-color: $white;
+  width: 100%;
+  height: 4.5rem;
+  position: relative;
+  z-index: 10;
 
-  // Header
-  .header {
-    &__list {
-      padding: 1rem 4rem;
+  &__list {
+    height: 100%;
+    @include flex(column, start, start);
+  }
 
-      .list__top {
-        padding: 1rem 1.5rem 1rem 0rem;
+  .list__top {
+    width: 100%;
+    @include flex(row, space-between, center);
+    padding: $padding-s $padding-l;
+    border-bottom: 1px solid $black;
+
+    i {
+      transition: $tr1;
+      cursor: pointer;
+      font-size: 1rem;
+      &:hover {
+        opacity: 0.6;
       }
     }
   }
 
+  nav {
+    background-color: $white;
+    width: 100%;
+    max-height: 0;
+    padding: $padding-s $padding-l;
+    font-size: $fonte-size-m;
+    border-bottom: 1px solid $black;
+    transition: height 4s ease-in-out, $tr1;
+    li {
+      padding: $padding-2xs;
+      font-weight: $bold;
+      transition: $tr1;
+      &:hover {
+        cursor: pointer;
+        opacity: 0.4;
+      }
+    }
+  }
+
+  &__cta {
+    padding: $padding-m 0rem 0rem 0rem;
+    @include flex(column, center, center);
+
+    button:not(:last-child) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  // Tablet
+  @include responsive(tablet) {
+    .header {
+      &__cta {
+        @include flex(row, center, center);
+
+        button:not(:last-child) {
+          margin-right: 1rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  // Desktop
+  @include responsive(desktop) {
+    @include deskHeader;
+
+    .header {
+      &__list {
+        padding: $padding-s $padding-2xl;
+
+        .list__top {
+          padding: $padding-s $padding-m $padding-s 0rem;
+        }
+      }
+    }
+  }
+  // Bigger desktop
+  @include responsive(biggerdesktop) {
+    @include deskHeader;
+    .header {
+      &__list {
+        padding: $padding-s 8rem;
+
+        .list__top {
+          padding: $padding-s $padding-m $padding-s 0rem;
+        }
+
+        nav {
+          .header__cta {
+            button {
+              padding: 0.5rem 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Reaproveitando estilos do intro para outras media queries
+@mixin introTablet {
+  .intro {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: $gap-l;
+
+    .main-content {
+      padding-right: 0;
+    }
+
+    &__info {
+      justify-content: start;
+    }
+
+    &__title {
+      font-size: 1.5rem;
+    }
+
+    &__cta {
+      button {
+        max-width: 120px;
+      }
+    }
+
+    &__img {
+      width: auto;
+      height: 80%;
+      padding: 0rem $padding-l 0rem 0rem;
+    }
+  }
+}
+
+// Intro
+.intro {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &__info {
+    position: relative;
+  }
+
+  &__title {
+    font-family: $fontM;
+    font-size: $fonte-size-l;
+    margin-bottom: 1.2rem;
+  }
+
+  &__p {
+    line-height: 1.5rem;
+  }
+
+  &__img {
+    padding: 0rem $padding-l $padding-2xl;
+    max-width: 100%;
+    height: auto;
+  }
+
+  &__info,
+  &__img {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+  }
+
+  &__cta {
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    padding: $padding-s 0rem 0rem 0rem;
+
+    button {
+      padding: 0rem;
+    }
+  }
+}
+// Desktop
+@include responsive(desktop) {
+  @include introTablet;
+
   // Intro
   .intro {
-    padding: 0rem 4rem;
+    padding: 0rem $padding-2xl;
     &__info {
       padding-left: 0rem;
       justify-content: center;
     }
     &__title {
-      font-size: 2.2rem;
+      font-size: $fonte-size-l;
       margin-bottom: 2rem;
     }
 
@@ -233,8 +252,8 @@ body {
     }
 
     &__cta {
-      font-size: 1.1rem;
-      padding-top: 1.8rem;
+      font-size: $fonte-size-b;
+      padding-top: $padding-l;
     }
 
     &__img {
@@ -246,27 +265,8 @@ body {
 
 // Bigger desktop
 @include responsive(biggerdesktop) {
-  @include deskHeader;
   @include introTablet;
 
-  // Header
-  .header {
-    &__list {
-      padding: 1rem 8rem;
-
-      .list__top {
-        padding: 1rem 1.5rem 1rem 0rem;
-      }
-
-      nav {
-        .header__cta {
-          button {
-            padding: 0.5rem 1.2rem;
-          }
-        }
-      }
-    }
-  }
   // Intro
   .intro {
     padding: 0rem 8rem;
@@ -278,7 +278,7 @@ body {
     }
 
     &__title {
-      font-size: 3.2rem;  
+      font-size: 3.2rem;
       margin-bottom: 2rem;
     }
 
@@ -287,7 +287,7 @@ body {
     }
 
     &__cta {
-      font-size: 1.1rem;
+      font-size: $fonte-size-b;
       padding-top: 2rem;
     }
 
