@@ -78,12 +78,6 @@ $tr1: all 0.3s ease-in-out;
   color: $white;
 }
 
-// Media Queries
-$mobile: 480px;
-$tablet: 768px;
-$desktop: 1024px;
-$biggerdesktop: 1200px;
-
 // Mixin display flex
 @mixin flex($direction, $justify, $align) {
   display: flex;
@@ -91,6 +85,13 @@ $biggerdesktop: 1200px;
   justify-content: $justify;
   align-items: $align;
 }
+
+// Media Queries
+$mobile: 480px;
+$tablet: 768px;
+$desktop: 1024px;
+$biggerdesktop: 1200px;
+
 
 // Mixin Responsividade
 @mixin responsive($device) {

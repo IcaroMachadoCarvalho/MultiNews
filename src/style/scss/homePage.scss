@@ -145,7 +145,11 @@ body {
         }
 
         nav {
+          li{
+            font-size: $fonte-size-b;
+          }
           .header__cta {
+            font-size: $fonte-size-b;
             button {
               padding: 0.5rem 1.2rem;
             }
@@ -287,13 +291,191 @@ body {
     }
 
     &__cta {
-      font-size: $fonte-size-b;
+      font-size: $fonte-size-m;
       padding-top: 2rem;
     }
 
     &__img {
       height: 100%;
       padding-right: 0rem;
+    }
+  }
+}
+
+.cta {
+  background-color: #61c2f2;
+
+  &__container {
+    padding-top: $padding-2xl;
+  }
+
+  &__info {
+    color: white;
+    text-align: center;
+    padding-bottom: $padding-m;
+    border-bottom: 1px solid white;
+
+    h1 {
+      font-family: $fontM;
+      font-size: 1.7rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  &__boxes {
+    @include flex(column, center, center);
+    margin: $padding-m 0rem;
+    gap: $gap-m;
+
+    .cta__box {
+      @include flex(column, space-between, start);
+      width: 100%;
+      min-height: 240px;
+      background-color: white;
+      padding: $padding-m;
+      border-radius: 0.5rem;
+
+      h1 {
+        font-family: $fontM;
+        font-size: 1.2rem;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      &--share {
+        @include flex(row, center, center);
+        svg {
+          margin-left: 0.4rem;
+          width: 10px;
+          height: 10px;
+          position: relative;
+          top: 1px;
+        }
+        transition: $tr1;
+
+        &:hover {
+          cursor: pointer;
+          opacity: 0.6;
+        }
+      }
+    }
+
+    .cta__box--container {
+      width: 100%;
+      @include flex(column, start, center);
+
+      .cta__box--img {
+        width: 100%;
+        height: 240px;
+      }
+
+      .cta__box--img img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .cta__box {
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+      }
+    }
+  }
+
+  @include responsive(tablet) {
+    .cta {
+      &__boxes {
+        @include flex(row, center, center);
+        flex-wrap: wrap;
+      }
+      &__box--container {
+        @include flex(row, center, center);
+
+        .cta__box--img {
+          height: 240px;
+        }
+
+        .cta__box {
+          border-top-right-radius: 0.5rem;
+          border-top-left-radius: 0px;
+          border-bottom-left-radius: 0px;
+        }
+      }
+    }
+  }
+
+  @include responsive(desktop) {
+    .cta {
+
+      &__container {
+        padding: $padding-2xl;
+      }
+
+      &__info {
+        margin-bottom: 80px;
+      }
+
+      &__boxes {
+        @include flex(row-reverse, center, center);
+
+        .cta__box {
+          width: auto;
+        }
+      }
+
+      &__box--container {
+        max-width: 300px;
+        .cta__box--img {
+          height: 240px;
+        }
+
+        .cta__box {
+          border-top-right-radius: 0rem;
+          border-top-left-radius: 0px;
+        }
+      }
+    }
+  }
+  @include responsive(biggerdesktop){
+    .cta {
+
+      &__container {
+        padding: 9rem 8rem;
+      }
+
+      &__info {
+        margin-bottom: 80px;
+        h1{
+          font-size: 3.2rem;
+        }
+        p{
+          font-size: 1.2rem;
+        }
+      }
+
+      &__boxes {
+        @include flex(row, center, center);
+        gap: $gap-xl;
+        .cta__box {
+          width: auto;
+        }
+      }
+
+      &__box--container {
+        @include flex(row, center, center);
+
+        .cta__box--img {
+          height: 240px;
+        }
+
+        .cta__box {
+          border-top-right-radius: 0.5rem;
+          border-top-left-radius: 0px;
+          border-bottom-left-radius: 0px;
+        }
+      }
     }
   }
 }
